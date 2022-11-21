@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/')]
 class MovieController extends AbstractController
 {
-    #[Route('/', name: 'app_movie_index', methods: ['GET'])]
+    #[Route('/Movies', name: 'app_movie_index', methods: ['GET'])]
     public function index(MovieRepository $movieRepository): Response
     {
         return $this->render('movie/index.html.twig', [
