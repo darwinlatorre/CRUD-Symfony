@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MovieRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -15,66 +15,53 @@ class Movie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    #[Assert\NotBlank()]
+    private ?string $title = null;
 
-    #[ORM\Column]
-    private ?int $duration = null;
+    #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank()]
+    private ?int $releaseYear = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $category = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $release_date = null;
+    private ?string $imagePath = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->Name;
+        return $this->title;
     }
 
-    public function setName(string $Name): self
+    public function setTitle(string $title): self
     {
-        $this->Name = $Name;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getReleaseYear(): ?int
     {
-        return $this->duration;
+        return $this->releaseYear;
     }
 
-    public function setDuration(int $duration): self
+    public function setReleaseYear(?int $releaseYear): self
     {
-        $this->duration = $duration;
+        $this->releaseYear = $releaseYear;
 
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getImagePath(): ?string
     {
-        return $this->category;
+        return $this->imagePath;
     }
 
-    public function setCategory(string $category): self
+    public function setImagePath(string $imagePath): self
     {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getReleaseDate(): ?\DateTimeInterface
-    {
-        return $this->release_date;
-    }
-
-    public function setReleaseDate(\DateTimeInterface $release_date): self
-    {
-        $this->release_date = $release_date;
+        $this->imagePath = $imagePath;
 
         return $this;
     }

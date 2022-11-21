@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/')]
+#[Route('/movie')]
 class MovieController extends AbstractController
 {
-    #[Route('/Movies', name: 'app_movie_index', methods: ['GET'])]
+    #[Route('/', name: 'app_movie_index', methods: ['GET'])]
     public function index(MovieRepository $movieRepository): Response
     {
         return $this->render('movie/index.html.twig', [
@@ -41,14 +41,16 @@ class MovieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_movie_show', methods: ['GET'])]
-    public function show(Movie $movie): Response
+    public function show($id, MovieRepository $movieRepository): Response
     {
+        $movie = $movieRepository->find($id);
+
         return $this->render('movie/show.html.twig', [
-            'movie' => $movie,
+            'movie' => $movie
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_movie_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_movie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Movie $movie, MovieRepository $movieRepository): Response
     {
         $form = $this->createForm(MovieType::class, $movie);

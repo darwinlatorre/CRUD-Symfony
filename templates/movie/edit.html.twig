@@ -1,13 +1,21 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Edit Movie{% endblock %}
+{% extends "./base.html.twig" %}
 
 {% block body %}
-    <h1>Edit Movie</h1>
+<div class="w-4/5 m-auto pt-40">
+    <h1 class="text-6xl text-center pb-12">
+        Edit Movie
+    </h1>
 
-    {{ include('movie/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ form_start(form) }}
 
-    <a href="{{ path('app_movie_index') }}">back to list</a>
+        {{ form_widget(form) }}
+        
+        <button    
+            type="submit"
+            class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+            Submit Post
+        </button>
 
-    {{ include('movie/_delete_form.html.twig') }}
+    {{ form_end(form) }}
+</div>
 {% endblock %}
